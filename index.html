@@ -178,32 +178,50 @@ button{
   line-height:1.7
 }
 
+
 /* =========================
    データ管理
 ========================= */
 
 .data-management{
-  margin-top:20px;
-  padding-top:10px;
+  margin-top:18px;
+  padding-top:8px;
   border-top:1px solid #ddd
 }
 
 .data-management h2{
-  margin-top:0
+  margin:0 0 6px;
+  padding:0;
+  border:none;
+  font-size:13px;
+  font-weight:normal;
+  color:#777
 }
 
 .data-buttons{
   display:flex;
-  gap:8px
+  gap:5px
 }
 
 .data-button{
-  flex:1;
-  height:38px;
+  width:auto;
+  height:28px;
+  padding:0 10px;
   background:#eee;
-  color:#333;
-  font-size:14px
+  color:#555;
+  border:1px solid #ddd;
+  border-radius:3px;
+  font-size:11px
 }
+
+#backupFile{
+  display:none
+}
+
+
+/* =========================
+   保存コース
+========================= */
 
 .saved{
   margin-top:20px
@@ -293,10 +311,6 @@ button{
   color:#888;
   padding:8px 0
 }
-
-#backupFile{
-  display:none
-}
 </style>
 </head>
 
@@ -372,9 +386,7 @@ button{
 ></div>
 
 
-<!-- =========================
-     データ管理
-========================= -->
+<!-- データ管理 -->
 
 <div class="data-management">
 
@@ -407,6 +419,8 @@ button{
 
 </div>
 
+
+<!-- 保存したコース -->
 
 <div class="saved">
 
@@ -651,7 +665,7 @@ function renumberFoods() {
 
 
 /* =========================
-   合計
+   合計金額
 ========================= */
 
 function getFoodTotal() {
@@ -930,7 +944,7 @@ function saveCourse(
 
 
 /* =========================
-   読込
+   保存コース読込
 ========================= */
 
 function loadCourseToForm(
@@ -1333,7 +1347,7 @@ function createSavedResult(
 
 
 /* =========================
-   コース削除
+   保存コース削除
 ========================= */
 
 function deleteCourse(id) {
@@ -1431,7 +1445,9 @@ function backupData() {
       1,
 
     backupDate:
-      formatDate(new Date()),
+      formatDate(
+        new Date()
+      ),
 
     courses:
       courses
@@ -1468,8 +1484,10 @@ function backupData() {
       'a'
     );
 
+
   const now =
     new Date();
+
 
   const filename =
     'コースメニュー_バックアップ_' +
