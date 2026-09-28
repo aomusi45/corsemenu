@@ -1,19 +1,20 @@
 ```html
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>コースメニュー</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#333333">
-<meta name="mobile-web-app-capable" content="yes">
-
 <style>
+
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
 }
 
 body{
@@ -21,170 +22,85 @@ body{
   margin:0;
   padding:10px;
   background:#fff;
-  color:#222
+  color:#222;
 }
 
 .box{
   max-width:600px;
-  margin:auto
+  margin:auto;
 }
 
 h1{
-  font-size:20px;
+  font-size:22px;
   text-align:center;
-  margin:5px 0 10px
+  margin:5px 0 15px;
 }
 
-h2{
+input{
   font-size:16px;
-  margin:18px 0 8px;
-  border-bottom:1px solid #ddd;
-  padding-bottom:5px
+  padding:8px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  background:#fff;
 }
 
-.search-box{
+.customer{
   width:100%;
-  height:38px;
-  padding:6px 10px;
-  border:1px solid #bbb;
-  border-radius:3px;
-  font-size:14px;
-  margin-bottom:12px
-}
-
-.info-row{
-  display:flex;
-  align-items:center;
-  margin-bottom:7px
-}
-
-.info-label{
-  width:105px;
-  font-size:14px;
-  flex-shrink:0
-}
-
-.info-input{
-  flex:1;
-  min-width:0;
-  height:38px;
-  padding:6px 8px;
-  border:1px solid #bbb;
-  border-radius:3px;
-  font-size:15px
-}
-
-.food{
-  margin-bottom:6px
+  margin-bottom:10px;
 }
 
 .food-row{
   display:flex;
   align-items:center;
-  gap:6px
+  gap:5px;
+  margin-bottom:6px;
 }
 
-.food-number{
-  width:22px;
-  font-size:14px;
-  text-align:right;
-  flex-shrink:0
+.plus-button{
+  width:25px;
+  height:25px;
+  min-width:25px;
+  padding:0;
+  border:1px solid #bbb;
+  background:#f5f5f5;
+  border-radius:4px;
+  font-size:16px;
+  line-height:23px;
 }
 
 .food-name{
   flex:1;
   min-width:0;
-  height:36px;
-  padding:5px 7px;
-  border:1px solid #bbb;
-  border-radius:3px;
-  font-size:15px
 }
 
 .food-price{
-  width:80px;
-  height:36px;
-  padding:5px;
-  border:1px solid #bbb;
-  border-radius:3px;
-  font-size:15px;
+  width:90px;
   text-align:right;
-  flex-shrink:0
 }
 
-button{
-  border:0;
-  border-radius:3px;
-  cursor:pointer
-}
-
-.delete{
-  width:45px;
-  height:36px;
-  background:#eee;
-  color:#555;
-  font-size:12px;
-  flex-shrink:0
-}
-
-.insert{
-  width:36px;
-  height:36px;
-  background:#ddd;
-  color:#333;
-  font-size:16px;
-  flex-shrink:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center
-}
-
-.main-button{
-  width:100%;
-  height:38px;
-  margin-top:8px;
-  background:#333;
-  color:white;
-  font-size:14px
-}
-
-.save{
-  background:#555
-}
-
-.button-group{
-  display:flex;
-  gap:8px;
-  margin-top:8px
-}
-
-.button-group .main-button{
-  margin-top:0
-}
-
-.total{
-  margin-top:12px;
-  padding:10px;
+.delete-button{
+  width:28px;
+  height:32px;
+  padding:0;
   border:1px solid #ccc;
-  background:#f7f7f7;
-  text-align:right;
-  font-size:18px;
-  font-weight:bold
-}
-
-.result{
-  margin-top:15px;
-  padding:10px;
-  border:1px solid #ddd;
+  background:#f5f5f5;
+  border-radius:4px;
   font-size:14px;
-  line-height:1.7
 }
 
+.total-box{
+  margin-top:15px;
+  padding:12px;
+  border-top:2px solid #222;
+  border-bottom:2px solid #222;
+  text-align:right;
+  font-size:22px;
+  font-weight:bold;
+}
 
-/* =================================
-   データ管理
-   ここは小さくシンプル
-================================= */
+.total-label{
+  margin-right:8px;
+}
 
 .data-management{
   margin-top:12px;
@@ -193,7 +109,7 @@ button{
   display:flex;
   align-items:center;
   gap:5px;
-  height:28px
+  height:28px;
 }
 
 .data-management-title{
@@ -201,7 +117,7 @@ button{
   color:#aaa;
   margin:0;
   padding:0;
-  white-space:nowrap
+  white-space:nowrap;
 }
 
 .data-buttons{
@@ -209,7 +125,7 @@ button{
   align-items:center;
   gap:3px;
   margin:0;
-  padding:0
+  padding:0;
 }
 
 .data-button{
@@ -229,112 +145,19 @@ button{
   font-family:sans-serif;
   font-size:9px !important;
   line-height:20px !important;
-  font-weight:normal !important
+  font-weight:normal !important;
 }
 
 .data-button:active{
-  background:#ddd !important
+  background:#ddd !important;
 }
 
 #backupFile{
-  display:none !important
-}
-
-
-/* =================================
-   保存したコース
-================================= */
-
-.saved{
-  margin-top:20px
-}
-
-.saved-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:18px 0 8px;
-  border-bottom:1px solid #ddd;
-  padding-bottom:5px
-}
-
-.saved-header h2{
-  margin:0;
-  border:none;
-  padding:0
-}
-
-.sort-select{
-  height:28px;
-  padding:0 6px;
-  border:1px solid #ccc;
-  border-radius:3px;
-  font-size:12px;
-  background:#fff
-}
-
-.saved-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #eee;
-  padding:6px 0;
-  font-size:14px
-}
-
-.saved-item-info{
-  flex:1;
-  min-width:0;
-  padding-right:8px
-}
-
-.saved-item-title{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  font-weight:bold
-}
-
-.saved-item-date{
-  font-size:11px;
-  color:#777;
-  margin-top:2px
-}
-
-.saved-item-buttons{
-  display:flex;
-  gap:4px;
-  flex-shrink:0
-}
-
-.saved-item-buttons button{
-  height:28px;
-  padding:0 8px;
-  font-size:12px;
-  background:#eee;
-  color:#333
-}
-
-.saved-item-buttons .load{
-  background:#e2e2e2
-}
-
-.saved-item-buttons .edit{
-  background:#d5d5d5
-}
-
-.saved-item-buttons .del{
-  background:#f2f2f2;
-  color:#666
-}
-
-.no-result{
-  font-size:13px;
-  color:#888;
-  padding:8px 0
+  display:none !important;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -343,188 +166,58 @@ button{
 
 <h1>コースメニュー</h1>
 
-
-<!-- =========================
-     検索
-========================= -->
-
 <input
-  id="searchKeyword"
-  class="search-box"
   type="text"
-  placeholder="キーワード検索（名前・料理名・日付）"
-  oninput="displaySavedCourses()"
+  id="customerName"
+  class="customer"
+  placeholder="お客様名"
 >
 
+<div id="foodList"></div>
 
-<input
-  type="hidden"
-  id="editingId"
-  value=""
->
+<div class="total-box">
 
+<span class="total-label">合計</span>
 
-<!-- =========================
-     お客様
-========================= -->
-
-<div class="info-row">
-
-  <div class="info-label">
-    お客様のお名前
-  </div>
-
-  <input
-    id="customerName"
-    class="info-input"
-    type="text"
-    placeholder="名前"
-  >
+<span id="totalPrice">0</span>円
 
 </div>
 
 
-<h2>料理</h2>
-
-
-<!-- =========================
-     料理
-========================= -->
-
-<div id="foods"></div>
-
-
-<!-- =========================
-     合計
-========================= -->
-
-<div class="total">
-
-  料理合計
-  <span id="foodTotal">0</span>円
-
-</div>
-
-
-<!-- =========================
-     コース作成
-========================= -->
-
-<button
-  class="main-button"
-  onclick="createMenu()"
->
-  コースを作成
-</button>
-
-
-<!-- =========================
-     保存
-========================= -->
-
-<div class="button-group">
-
-  <button
-    class="main-button save"
-    onclick="saveCourse(false)"
-  >
-    新規保存
-  </button>
-
-  <button
-    class="main-button save"
-    onclick="saveCourse(true)"
-  >
-    上書き保存
-  </button>
-
-</div>
-
-
-<!-- =========================
-     結果
-========================= -->
-
-<div
-  id="result"
-  class="result"
-  style="display:none"
-></div>
-
-
-<!-- =========================
-     データ管理
-========================= -->
+<!-- データ管理 -->
 
 <div class="data-management">
 
-  <span class="data-management-title">
-    データ
-  </span>
+<span class="data-management-title">
+データ
+</span>
 
-  <div class="data-buttons">
+<div class="data-buttons">
 
-    <button
-      type="button"
-      class="data-button"
-      onclick="backupData()"
-    >
-      バックアップ
-    </button>
+<button
+  type="button"
+  class="data-button"
+  onclick="backupData()"
+>
+バックアップ
+</button>
 
-    <button
-      type="button"
-      class="data-button"
-      onclick="document.getElementById('backupFile').click()"
-    >
-      復元
-    </button>
-
-  </div>
-
-  <input
-    type="file"
-    id="backupFile"
-    accept=".json,application/json"
-    onchange="restoreData(event)"
-  >
+<button
+  type="button"
+  class="data-button"
+  onclick="document.getElementById('backupFile').click()"
+>
+復元
+</button>
 
 </div>
 
-
-<!-- =========================
-     保存したコース
-========================= -->
-
-<div class="saved">
-
-  <div class="saved-header">
-
-    <h2>保存したコース</h2>
-
-    <select
-      id="sortOrder"
-      class="sort-select"
-      onchange="displaySavedCourses()"
-    >
-
-      <option value="newest">
-        新しい順（デフォルト）
-      </option>
-
-      <option value="oldest">
-        古い順
-      </option>
-
-      <option value="name">
-        名前順（五十音）
-      </option>
-
-    </select>
-
-  </div>
-
-  <div id="savedCourses"></div>
+<input
+  type="file"
+  id="backupFile"
+  accept=".json,application/json"
+  onchange="restoreData(event)"
+>
 
 </div>
 
@@ -533,1055 +226,276 @@ button{
 
 <script>
 
-/* =================================
-   料理カウント
-================================= */
+/* =========================
+   料理データ
+========================= */
 
-let foodCount = 0;
+const foodList =
+  document.getElementById(
+    'foodList'
+  );
 
+const customerName =
+  document.getElementById(
+    'customerName'
+  );
 
-/* =================================
-   料理追加
-================================= */
-
-function addFood(name = '', price = '') {
-
-  foodCount++;
-
-  const id = foodCount;
-
-  const food =
-    document.createElement('div');
-
-  food.className = 'food';
-
-  food.id = 'food' + id;
-
-  food.innerHTML = `
-
-    <div class="food-row">
-
-      <span class="food-number"></span>
-
-      <input
-        type="text"
-        class="food-name"
-        placeholder="料理名"
-        value="${escapeHtml(name)}"
-      >
-
-      <input
-        type="number"
-        class="food-price"
-        placeholder="金額"
-        min="0"
-        value="${price}"
-      >
-
-      <button
-        class="delete"
-        onclick="deleteFood(${id})"
-      >
-        削除
-      </button>
-
-      <button
-        class="insert"
-        onclick="insertFoodAfter(${id})"
-      >
-        ＋
-      </button>
-
-    </div>
-
-  `;
+const totalPrice =
+  document.getElementById(
+    'totalPrice'
+  );
 
 
-  document
-    .getElementById('foods')
-    .appendChild(food);
+/* =========================
+   料理を追加
+========================= */
 
+function addFood(
+  position = null,
+  name = '',
+  price = ''
+){
 
-  food
-    .querySelector('.food-price')
-    .addEventListener(
-      'input',
-      updateFoodTotal
+  const row =
+    document.createElement(
+      'div'
     );
 
-
-  renumberFoods();
-
-  updateFoodTotal();
-
-}
+  row.className =
+    'food-row';
 
 
-/* =================================
-   途中に料理を追加
-================================= */
+  /* ＋ボタン */
 
-function insertFoodAfter(id) {
-
-  const current =
-    document.getElementById(
-      'food' + id
+  const plus =
+    document.createElement(
+      'button'
     );
 
-  if (!current) return;
+  plus.type =
+    'button';
+
+  plus.className =
+    'plus-button';
+
+  plus.textContent =
+    '＋';
+
+  plus.onclick =
+    function(){
+
+      const newRow =
+        createFoodRow();
+
+      row.parentNode.insertBefore(
+        newRow,
+        row.nextSibling
+      );
+
+      updateTotal();
+
+    };
 
 
-  foodCount++;
+  /* 料理名 */
 
-  const newId = foodCount;
-
-
-  const food =
-    document.createElement('div');
-
-  food.className = 'food';
-
-  food.id = 'food' + newId;
-
-
-  food.innerHTML = `
-
-    <div class="food-row">
-
-      <span class="food-number"></span>
-
-      <input
-        type="text"
-        class="food-name"
-        placeholder="料理名"
-      >
-
-      <input
-        type="number"
-        class="food-price"
-        placeholder="金額"
-        min="0"
-      >
-
-      <button
-        class="delete"
-        onclick="deleteFood(${newId})"
-      >
-        削除
-      </button>
-
-      <button
-        class="insert"
-        onclick="insertFoodAfter(${newId})"
-      >
-        ＋
-      </button>
-
-    </div>
-
-  `;
-
-
-  current.after(food);
-
-
-  food
-    .querySelector('.food-price')
-    .addEventListener(
-      'input',
-      updateFoodTotal
+  const nameInput =
+    document.createElement(
+      'input'
     );
 
+  nameInput.type =
+    'text';
 
-  renumberFoods();
+  nameInput.className =
+    'food-name';
 
-  updateFoodTotal();
+  nameInput.placeholder =
+    '料理名';
 
-}
+  nameInput.value =
+    name;
 
 
-/* =================================
-   料理削除
-================================= */
+  /* 金額 */
 
-function deleteFood(id) {
+  const priceInput =
+    document.createElement(
+      'input'
+    );
 
-  if (
-    !confirm(
-      'この料理を削除しますか？'
-    )
-  ) {
-    return;
+  priceInput.type =
+    'number';
+
+  priceInput.className =
+    'food-price';
+
+  priceInput.placeholder =
+    '金額';
+
+  priceInput.inputMode =
+    'numeric';
+
+  priceInput.value =
+    price;
+
+
+  /* 削除 */
+
+  const deleteButton =
+    document.createElement(
+      'button'
+    );
+
+  deleteButton.type =
+    'button';
+
+  deleteButton.className =
+    'delete-button';
+
+  deleteButton.textContent =
+    '×';
+
+  deleteButton.onclick =
+    function(){
+
+      row.remove();
+
+      updateTotal();
+
+    };
+
+
+  row.appendChild(
+    plus
+  );
+
+  row.appendChild(
+    nameInput
+  );
+
+  row.appendChild(
+    priceInput
+  );
+
+  row.appendChild(
+    deleteButton
+  );
+
+
+  if(
+    position === null
+  ){
+
+    foodList.appendChild(
+      row
+    );
+
+  }else{
+
+    foodList.insertBefore(
+      row,
+      foodList.children[
+        position
+      ]
+    );
+
   }
 
 
-  const food =
-    document.getElementById(
-      'food' + id
-    );
+  nameInput.addEventListener(
+    'input',
+    updateTotal
+  );
 
+  priceInput.addEventListener(
+    'input',
+    updateTotal
+  );
 
-  if (food) {
-
-    food.remove();
-
-    renumberFoods();
-
-    updateFoodTotal();
-
-  }
+  return row;
 
 }
 
 
-/* =================================
-   料理番号
-================================= */
+/* =========================
+   料理行を作成
+========================= */
 
-function renumberFoods() {
+function createFoodRow(){
 
-  document
-    .querySelectorAll('.food')
-    .forEach(
-      (food, index) => {
-
-        food
-          .querySelector(
-            '.food-number'
-          )
-          .textContent =
-          (index + 1) + '.';
-
-      }
-    );
+  return addFood();
 
 }
 
 
-/* =================================
+/* =========================
    合計金額
-================================= */
+========================= */
 
-function getFoodTotal() {
+function updateTotal(){
 
   let total = 0;
 
-
   document
-    .querySelectorAll('.food-price')
+    .querySelectorAll(
+      '.food-price'
+    )
     .forEach(
-      input => {
+      function(input){
 
         total +=
-          Number(input.value) || 0;
+          Number(
+            input.value
+          ) || 0;
 
       }
     );
 
-
-  return total;
-
-}
-
-
-function updateFoodTotal() {
-
-  document
-    .getElementById(
-      'foodTotal'
-    )
-    .textContent =
-    getFoodTotal().toLocaleString();
+  totalPrice.textContent =
+    total.toLocaleString();
 
 }
 
 
-/* =================================
-   日付
-================================= */
+/* =========================
+   現在の内容を取得
+========================= */
 
-function formatDate(date) {
-
-  const y =
-    date.getFullYear();
-
-  const m =
-    String(
-      date.getMonth() + 1
-    ).padStart(2, '0');
-
-  const d =
-    String(
-      date.getDate()
-    ).padStart(2, '0');
-
-  const hh =
-    String(
-      date.getHours()
-    ).padStart(2, '0');
-
-  const mm =
-    String(
-      date.getMinutes()
-    ).padStart(2, '0');
-
-
-  return (
-    y + '/' +
-    m + '/' +
-    d + ' ' +
-    hh + ':' +
-    mm
-  );
-
-}
-
-
-/* =================================
-   コースデータ取得
-================================= */
-
-function getCourseData() {
+function getCurrentData(){
 
   const foods = [];
 
+  document
+    .querySelectorAll(
+      '.food-row'
+    )
+    .forEach(
+      function(row){
 
-  const names =
-    document.querySelectorAll(
-      '.food-name'
+        const name =
+          row.querySelector(
+            '.food-name'
+          ).value;
+
+        const price =
+          row.querySelector(
+            '.food-price'
+          ).value;
+
+        foods.push({
+
+          name:name,
+
+          price:price
+
+        });
+
+      }
     );
-
-  const prices =
-    document.querySelectorAll(
-      '.food-price'
-    );
-
-
-  for (
-    let i = 0;
-    i < names.length;
-    i++
-  ) {
-
-    if (
-      names[i].value.trim() !== ''
-    ) {
-
-      foods.push({
-
-        name:
-          names[i].value,
-
-        price:
-          Number(
-            prices[i].value
-          ) || 0
-
-      });
-
-    }
-
-  }
 
 
   return {
-
-    name:
-      document
-        .getElementById(
-          'customerName'
-        )
-        .value,
-
-    foods:
-
-      foods,
-
-    updatedAt:
-
-      formatDate(
-        new Date()
-      )
-
-  };
-
-}
-
-
-/* =================================
-   コース作成
-================================= */
-
-function createMenu() {
-
-  const data =
-    getCourseData();
-
-
-  let html =
-    '<b>' +
-    (
-      data.name
-        ? data.name + ' 様'
-        : '名前なし'
-    ) +
-    '</b><hr>';
-
-
-  data.foods.forEach(
-    (food, index) => {
-
-      html +=
-        (index + 1) +
-        '. ' +
-        escapeHtml(
-          food.name
-        ) +
-        ' ' +
-        food.price.toLocaleString() +
-        '円<br>';
-
-    }
-  );
-
-
-  document
-    .getElementById(
-      'result'
-    )
-    .innerHTML =
-    html;
-
-
-  document
-    .getElementById(
-      'result'
-    )
-    .style.display =
-    'block';
-
-}
-
-
-/* =================================
-   保存
-================================= */
-
-function saveCourse(
-  isOverwrite = false
-) {
-
-  const data =
-    getCourseData();
-
-
-  let courses =
-    JSON.parse(
-      localStorage.getItem(
-        'courseMenuData'
-      )
-    ) || [];
-
-
-  const editingId =
-    document
-      .getElementById(
-        'editingId'
-      )
-      .value;
-
-
-  if (
-    isOverwrite &&
-    editingId
-  ) {
-
-    const index =
-      courses.findIndex(
-        c =>
-          c.id ===
-          Number(editingId)
-      );
-
-
-    if (index !== -1) {
-
-      data.id =
-        Number(editingId);
-
-      courses[index] =
-        data;
-
-      alert(
-        '上書き保存しました'
-      );
-
-    } else {
-
-      data.id =
-        Date.now();
-
-      courses.push(data);
-
-      alert(
-        '新規保存しました'
-      );
-
-    }
-
-  } else {
-
-    data.id =
-      Date.now();
-
-    courses.push(data);
-
-
-    document
-      .getElementById(
-        'editingId'
-      )
-      .value =
-      data.id;
-
-
-    alert(
-      '新規保存しました'
-    );
-
-  }
-
-
-  localStorage.setItem(
-    'courseMenuData',
-    JSON.stringify(
-      courses
-    )
-  );
-
-
-  displaySavedCourses();
-
-}
-
-
-/* =================================
-   保存コース読込
-================================= */
-
-function loadCourseToForm(course) {
-
-  document
-    .getElementById(
-      'editingId'
-    )
-    .value =
-    course.id;
-
-
-  document
-    .getElementById(
-      'customerName'
-    )
-    .value =
-    course.name || '';
-
-
-  document
-    .getElementById(
-      'foods'
-    )
-    .innerHTML = '';
-
-
-  foodCount = 0;
-
-
-  if (
-    course.foods &&
-    course.foods.length > 0
-  ) {
-
-    course.foods.forEach(
-      food => {
-
-        addFood(
-          food.name,
-          food.price
-        );
-
-      }
-    );
-
-  } else {
-
-    addFood();
-
-  }
-
-
-  updateFoodTotal();
-
-}
-
-
-/* =================================
-   保存コース表示
-================================= */
-
-function displaySavedCourses() {
-
-  const area =
-    document.getElementById(
-      'savedCourses'
-    );
-
-
-  const courses =
-    JSON.parse(
-      localStorage.getItem(
-        'courseMenuData'
-      )
-    ) || [];
-
-
-  const keyword =
-    document
-      .getElementById(
-        'searchKeyword'
-      )
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  const sortOrder =
-    document
-      .getElementById(
-        'sortOrder'
-      )
-      .value;
-
-
-  area.innerHTML = '';
-
-
-  let filtered =
-    courses.filter(
-      course =>
-
-        keyword === '' ||
-
-        String(
-          course.name || ''
-        )
-        .toLowerCase()
-        .includes(keyword) ||
-
-        String(
-          course.updatedAt || ''
-        )
-        .toLowerCase()
-        .includes(keyword) ||
-
-        (course.foods || [])
-        .some(
-          food =>
-            String(
-              food.name || ''
-            )
-            .toLowerCase()
-            .includes(keyword)
-        )
-    );
-
-
-  if (
-    filtered.length === 0
-  ) {
-
-    area.innerHTML =
-      '<div class="no-result">' +
-      '該当するコースはありません。' +
-      '</div>';
-
-    return;
-
-  }
-
-
-  if (
-    sortOrder === 'newest'
-  ) {
-
-    filtered.sort(
-      (a, b) =>
-        b.id - a.id
-    );
-
-  } else if (
-    sortOrder === 'oldest'
-  ) {
-
-    filtered.sort(
-      (a, b) =>
-        a.id - b.id
-    );
-
-  } else if (
-    sortOrder === 'name'
-  ) {
-
-    filtered.sort(
-      (a, b) =>
-        (a.name || '')
-        .localeCompare(
-          b.name || '',
-          'ja'
-        )
-    );
-
-  }
-
-
-  filtered.forEach(
-    course => {
-
-      const div =
-        document.createElement(
-          'div'
-        );
-
-
-      div.className =
-        'saved-item';
-
-
-      const infoDiv =
-        document.createElement(
-          'div'
-        );
-
-
-      infoDiv.className =
-        'saved-item-info';
-
-
-      const titleDiv =
-        document.createElement(
-          'div'
-        );
-
-
-      titleDiv.className =
-        'saved-item-title';
-
-
-      titleDiv.textContent =
-        (
-          course.name
-            ? course.name + ' 様'
-            : '名称未設定'
-        );
-
-
-      const dateDiv =
-        document.createElement(
-          'div'
-        );
-
-
-      dateDiv.className =
-        'saved-item-date';
-
-
-      dateDiv.textContent =
-        course.updatedAt
-          ? `保存日: ${course.updatedAt}`
-          : '';
-
-
-      infoDiv.appendChild(
-        titleDiv
-      );
-
-
-      if (
-        course.updatedAt
-      ) {
-
-        infoDiv.appendChild(
-          dateDiv
-        );
-
-      }
-
-
-      const btnGroup =
-        document.createElement(
-          'div'
-        );
-
-
-      btnGroup.className =
-        'saved-item-buttons';
-
-
-      const loadResultBtn =
-        document.createElement(
-          'button'
-        );
-
-
-      loadResultBtn.className =
-        'load';
-
-
-      loadResultBtn.textContent =
-        '表示';
-
-
-      loadResultBtn.onclick =
-        () =>
-          createSavedResult(
-            course
-          );
-
-
-      const loadFormBtn =
-        document.createElement(
-          'button'
-        );
-
-
-      loadFormBtn.className =
-        'edit';
-
-
-      loadFormBtn.textContent =
-        '読込';
-
-
-      loadFormBtn.onclick =
-        () =>
-          loadCourseToForm(
-            course
-          );
-
-
-      const delBtn =
-        document.createElement(
-          'button'
-        );
-
-
-      delBtn.className =
-        'del';
-
-
-      delBtn.textContent =
-        '削除';
-
-
-      delBtn.onclick =
-        () =>
-          deleteCourse(
-            course.id
-          );
-
-
-      btnGroup.appendChild(
-        loadResultBtn
-      );
-
-      btnGroup.appendChild(
-        loadFormBtn
-      );
-
-      btnGroup.appendChild(
-        delBtn
-      );
-
-
-      div.appendChild(
-        infoDiv
-      );
-
-      div.appendChild(
-        btnGroup
-      );
-
-
-      area.appendChild(
-        div
-      );
-
-    }
-  );
-
-}
-
-
-/* =================================
-   保存コース表示
-================================= */
-
-function createSavedResult(course) {
-
-  let html =
-    '<b>' +
-    (
-      course.name
-        ? course.name + ' 様'
-        : '名称未設定'
-    ) +
-    '</b>';
-
-
-  if (
-    course.updatedAt
-  ) {
-
-    html +=
-      `<span style="font-size:12px;color:#666;margin-left:8px;">` +
-      `(${course.updatedAt})` +
-      `</span>`;
-
-  }
-
-
-  html += '<hr>';
-
-
-  (course.foods || [])
-    .forEach(
-      (food, index) => {
-
-        html +=
-          (index + 1) +
-          '. ' +
-          escapeHtml(
-            food.name
-          ) +
-          ' ' +
-          Number(
-            food.price || 0
-          ).toLocaleString() +
-          '円<br>';
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      'result'
-    )
-    .innerHTML =
-    html;
-
-
-  document
-    .getElementById(
-      'result'
-    )
-    .style.display =
-    'block';
-
-}
-
-
-/* =================================
-   保存コース削除
-================================= */
-
-function deleteCourse(id) {
-
-  if (
-    !confirm(
-      'このコースデータを削除しますか？'
-    )
-  ) {
-
-    return;
-
-  }
-
-
-  let courses =
-    JSON.parse(
-      localStorage.getItem(
-        'courseMenuData'
-      )
-    ) || [];
-
-
-  courses =
-    courses.filter(
-      course =>
-        course.id !== id
-    );
-
-
-  localStorage.setItem(
-    'courseMenuData',
-    JSON.stringify(
-      courses
-    )
-  );
-
-
-  if (
-    document
-      .getElementById(
-        'editingId'
-      )
-      .value ===
-    String(id)
-  ) {
-
-    document
-      .getElementById(
-        'editingId'
-      )
-      .value = '';
-
-  }
-
-
-  displaySavedCourses();
-
-}
-
-
-/* =================================
-   バックアップ
-================================= */
-
-function backupData() {
-
-  const courses =
-    JSON.parse(
-      localStorage.getItem(
-        'courseMenuData'
-      )
-    ) || [];
-
-
-  if (
-    courses.length === 0
-  ) {
-
-    alert(
-      'バックアップするデータがありません。'
-    );
-
-    return;
-
-  }
-
-
-  const backup = {
 
     appName:
       'コースメニュー',
@@ -1590,19 +504,32 @@ function backupData() {
       1,
 
     backupDate:
-      formatDate(
-        new Date()
-      ),
+      new Date().toISOString(),
 
-    courses:
-      courses
+    customerName:
+      customerName.value,
+
+    foods:
+      foods
 
   };
+
+}
+
+
+/* =========================
+   バックアップ
+========================= */
+
+function backupData(){
+
+  const data =
+    getCurrentData();
 
 
   const json =
     JSON.stringify(
-      backup,
+      data,
       null,
       2
     );
@@ -1636,17 +563,28 @@ function backupData() {
 
   const filename =
     'コースメニュー_バックアップ_' +
+
     now.getFullYear() +
+
     String(
       now.getMonth() + 1
-    ).padStart(2, '0') +
+    ).padStart(
+      2,
+      '0'
+    ) +
+
     String(
       now.getDate()
-    ).padStart(2, '0') +
+    ).padStart(
+      2,
+      '0'
+    ) +
+
     '.json';
 
 
-  a.href = url;
+  a.href =
+    url;
 
   a.download =
     filename;
@@ -1654,11 +592,12 @@ function backupData() {
 
   document
     .body
-    .appendChild(a);
+    .appendChild(
+      a
+    );
 
 
   a.click();
-
 
   a.remove();
 
@@ -1667,25 +606,28 @@ function backupData() {
     url
   );
 
-
-  alert(
-    'バックアップファイルを保存しました。'
-  );
-
 }
 
 
-/* =================================
+/* =========================
    復元
-================================= */
+========================= */
 
-function restoreData(event) {
+function restoreData(
+  event
+){
 
   const file =
     event.target.files[0];
 
 
-  if (!file) return;
+  if(
+    !file
+  ){
+
+    return;
+
+  }
 
 
   const reader =
@@ -1693,57 +635,60 @@ function restoreData(event) {
 
 
   reader.onload =
-    function(e) {
+    function(e){
 
-      try {
+      try{
 
-        const backup =
+        const data =
           JSON.parse(
             e.target.result
           );
 
 
-        if (
-          !backup ||
+        if(
+          !data ||
           !Array.isArray(
-            backup.courses
+            data.foods
           )
-        ) {
+        ){
 
           throw new Error();
 
         }
 
 
-        if (
-          !confirm(
-            '現在保存されているコースデータを、バックアップデータで置き換えますか？'
-          )
-        ) {
+        customerName.value =
+          data.customerName || '';
 
-          event.target.value = '';
 
-          return;
+        foodList.innerHTML =
+          '';
+
+
+        if(
+          data.foods.length === 0
+        ){
+
+          addFood();
+
+        }else{
+
+          data.foods.forEach(
+            function(food){
+
+              addFood(
+                null,
+                food.name || '',
+                food.price || ''
+              );
+
+            }
+          );
 
         }
 
 
-        localStorage.setItem(
-          'courseMenuData',
-          JSON.stringify(
-            backup.courses
-          )
-        );
-
-
-        document
-          .getElementById(
-            'editingId'
-          )
-          .value = '';
-
-
-        displaySavedCourses();
+        updateTotal();
 
 
         alert(
@@ -1751,7 +696,7 @@ function restoreData(event) {
         );
 
 
-      } catch(error) {
+      }catch(error){
 
         alert(
           'バックアップファイルを読み込めませんでした。'
@@ -1760,109 +705,164 @@ function restoreData(event) {
       }
 
 
-      event.target.value = '';
+      event.target.value =
+        '';
 
     };
 
 
-  reader.readAsText(file);
+  reader.readAsText(
+    file
+  );
 
 }
 
 
-/* =================================
-   HTMLエスケープ
-================================= */
-
-function escapeHtml(value) {
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      '&amp;'
-    )
-
-    .replace(
-      /</g,
-      '&lt;'
-    )
-
-    .replace(
-      />/g,
-      '&gt;'
-    )
-
-    .replace(
-      /"/g,
-      '&quot;'
-    )
-
-    .replace(
-      /'/g,
-      '&#039;'
-    );
-
-}
-
-
-/* =================================
-   初期状態
-================================= */
+/* =========================
+   初期表示
+========================= */
 
 addFood();
 
-addFood();
-
-addFood();
-
-displaySavedCourses();
-
-updateFoodTotal();
+updateTotal();
 
 
-/* =================================
-   Service Worker
-================================= */
+/* =========================
+   お客様名の保存
+========================= */
 
-if (
-  'serviceWorker' in navigator
-) {
+customerName.addEventListener(
+  'input',
+  function(){
 
-  window.addEventListener(
-    'load',
-    () => {
+    try{
 
-      navigator.serviceWorker
-        .register('./sw.js')
-        .then(
-          registration => {
+      localStorage.setItem(
+        'courseMenuCurrent',
+        JSON.stringify(
+          getCurrentData()
+        )
+      );
 
-            console.log(
-              'Service Worker登録成功:',
-              registration.scope
+    }catch(error){}
+
+  }
+);
+
+
+/* =========================
+   自動保存
+========================= */
+
+document.addEventListener(
+  'input',
+  function(){
+
+    try{
+
+      localStorage.setItem(
+        'courseMenuCurrent',
+        JSON.stringify(
+          getCurrentData()
+        )
+      );
+
+    }catch(error){}
+
+  }
+);
+
+
+/* =========================
+   起動時に前回の内容を復元
+========================= */
+
+window.addEventListener(
+  'load',
+  function(){
+
+    try{
+
+      const saved =
+        localStorage.getItem(
+          'courseMenuCurrent'
+        );
+
+
+      if(
+        !saved
+      ){
+
+        return;
+
+      }
+
+
+      const data =
+        JSON.parse(
+          saved
+        );
+
+
+      if(
+        !data ||
+        !Array.isArray(
+          data.foods
+        )
+      ){
+
+        return;
+
+      }
+
+
+      if(
+        data.customerName ||
+        data.foods.some(
+          function(food){
+
+            return (
+              food.name ||
+              food.price
             );
 
           }
         )
-        .catch(
-          error => {
+      ){
 
-            console.log(
-              'Service Worker登録失敗:',
-              error
+        customerName.value =
+          data.customerName || '';
+
+
+        foodList.innerHTML =
+          '';
+
+
+        data.foods.forEach(
+          function(food){
+
+            addFood(
+              null,
+              food.name || '',
+              food.price || ''
             );
 
           }
         );
 
-    }
-  );
 
-}
+        updateTotal();
+
+      }
+
+    }catch(error){}
+
+  }
+);
 
 </script>
 
 </body>
+
 </html>
 ```
