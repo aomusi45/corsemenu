@@ -1,0 +1,12 @@
+```json
+{
+  "name": "コースメニュー",
+  "short_name": "コースメニュー",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#333333",
+  "orientation": "portrait",
+  "lang": "ja"
+}
+```
