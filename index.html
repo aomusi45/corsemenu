@@ -12,7 +12,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box
+}
 
 body{
   font-family:sans-serif;
@@ -179,49 +181,69 @@ button{
 }
 
 
-/* =========================
+/* =================================
    データ管理
-========================= */
+   ここは小さくシンプル
+================================= */
 
 .data-management{
-  margin-top:15px;
-  padding-top:5px;
-  border-top:1px solid #eee
+  margin-top:12px;
+  padding-top:4px;
+  border-top:1px solid #eee;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  height:28px
 }
 
-.data-management h2{
-  margin:0 0 4px;
+.data-management-title{
+  font-size:9px;
+  color:#aaa;
+  margin:0;
   padding:0;
-  border:none;
-  font-size:11px;
-  font-weight:normal;
-  color:#999
+  white-space:nowrap
 }
 
 .data-buttons{
   display:flex;
-  gap:4px
+  align-items:center;
+  gap:3px;
+  margin:0;
+  padding:0
 }
 
 .data-button{
-  width:auto;
-  height:24px;
-  padding:0 7px;
-  background:#f5f5f5;
-  color:#777;
-  border:1px solid #ddd;
-  border-radius:3px;
-  font-size:10px
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  width:auto !important;
+  min-width:0 !important;
+  height:20px !important;
+  min-height:20px !important;
+  margin:0 !important;
+  padding:0 5px !important;
+  border:1px solid #ddd !important;
+  border-radius:2px !important;
+  background:#f7f7f7 !important;
+  color:#888 !important;
+  font-family:sans-serif;
+  font-size:9px !important;
+  line-height:20px !important;
+  font-weight:normal !important
+}
+
+.data-button:active{
+  background:#ddd !important
 }
 
 #backupFile{
-  display:none
+  display:none !important
 }
 
 
-/* =========================
+/* =================================
    保存したコース
-========================= */
+================================= */
 
 .saved{
   margin-top:20px
@@ -311,6 +333,7 @@ button{
   color:#888;
   padding:8px 0
 }
+
 </style>
 </head>
 
@@ -320,6 +343,11 @@ button{
 
 <h1>コースメニュー</h1>
 
+
+<!-- =========================
+     検索
+========================= -->
+
 <input
   id="searchKeyword"
   class="search-box"
@@ -328,7 +356,17 @@ button{
   oninput="displaySavedCourses()"
 >
 
-<input type="hidden" id="editingId" value="">
+
+<input
+  type="hidden"
+  id="editingId"
+  value=""
+>
+
+
+<!-- =========================
+     お客様
+========================= -->
 
 <div class="info-row">
 
@@ -345,14 +383,32 @@ button{
 
 </div>
 
+
 <h2>料理</h2>
+
+
+<!-- =========================
+     料理
+========================= -->
 
 <div id="foods"></div>
 
+
+<!-- =========================
+     合計
+========================= -->
+
 <div class="total">
+
   料理合計
   <span id="foodTotal">0</span>円
+
 </div>
+
+
+<!-- =========================
+     コース作成
+========================= -->
 
 <button
   class="main-button"
@@ -360,6 +416,11 @@ button{
 >
   コースを作成
 </button>
+
+
+<!-- =========================
+     保存
+========================= -->
 
 <div class="button-group">
 
@@ -379,6 +440,11 @@ button{
 
 </div>
 
+
+<!-- =========================
+     結果
+========================= -->
+
 <div
   id="result"
   class="result"
@@ -386,15 +452,20 @@ button{
 ></div>
 
 
-<!-- データ管理 -->
+<!-- =========================
+     データ管理
+========================= -->
 
 <div class="data-management">
 
-  <h2>データ管理</h2>
+  <span class="data-management-title">
+    データ
+  </span>
 
   <div class="data-buttons">
 
     <button
+      type="button"
       class="data-button"
       onclick="backupData()"
     >
@@ -402,6 +473,7 @@ button{
     </button>
 
     <button
+      type="button"
       class="data-button"
       onclick="document.getElementById('backupFile').click()"
     >
@@ -420,7 +492,9 @@ button{
 </div>
 
 
-<!-- 保存したコース -->
+<!-- =========================
+     保存したコース
+========================= -->
 
 <div class="saved">
 
@@ -459,12 +533,16 @@ button{
 
 <script>
 
+/* =================================
+   料理カウント
+================================= */
+
 let foodCount = 0;
 
 
-/* =========================
+/* =================================
    料理追加
-========================= */
+================================= */
 
 function addFood(name = '', price = '') {
 
@@ -515,11 +593,14 @@ function addFood(name = '', price = '') {
       </button>
 
     </div>
+
   `;
+
 
   document
     .getElementById('foods')
     .appendChild(food);
+
 
   food
     .querySelector('.food-price')
@@ -528,35 +609,40 @@ function addFood(name = '', price = '') {
       updateFoodTotal
     );
 
+
   renumberFoods();
 
   updateFoodTotal();
+
 }
 
 
-/* =========================
-   途中に料理追加
-========================= */
+/* =================================
+   途中に料理を追加
+================================= */
 
 function insertFoodAfter(id) {
 
   const current =
     document.getElementById(
-      "food" + id
+      'food' + id
     );
 
   if (!current) return;
+
 
   foodCount++;
 
   const newId = foodCount;
 
+
   const food =
-    document.createElement("div");
+    document.createElement('div');
 
-  food.className = "food";
+  food.className = 'food';
 
-  food.id = "food" + newId;
+  food.id = 'food' + newId;
+
 
   food.innerHTML = `
 
@@ -592,26 +678,31 @@ function insertFoodAfter(id) {
       </button>
 
     </div>
+
   `;
+
 
   current.after(food);
 
+
   food
-    .querySelector(".food-price")
+    .querySelector('.food-price')
     .addEventListener(
-      "input",
+      'input',
       updateFoodTotal
     );
+
 
   renumberFoods();
 
   updateFoodTotal();
+
 }
 
 
-/* =========================
+/* =================================
    料理削除
-========================= */
+================================= */
 
 function deleteFood(id) {
 
@@ -623,10 +714,12 @@ function deleteFood(id) {
     return;
   }
 
+
   const food =
     document.getElementById(
       'food' + id
     );
+
 
   if (food) {
 
@@ -637,12 +730,13 @@ function deleteFood(id) {
     updateFoodTotal();
 
   }
+
 }
 
 
-/* =========================
+/* =================================
    料理番号
-========================= */
+================================= */
 
 function renumberFoods() {
 
@@ -664,13 +758,14 @@ function renumberFoods() {
 }
 
 
-/* =========================
+/* =================================
    合計金額
-========================= */
+================================= */
 
 function getFoodTotal() {
 
   let total = 0;
+
 
   document
     .querySelectorAll('.food-price')
@@ -683,7 +778,9 @@ function getFoodTotal() {
       }
     );
 
+
   return total;
+
 }
 
 
@@ -699,9 +796,9 @@ function updateFoodTotal() {
 }
 
 
-/* =========================
+/* =================================
    日付
-========================= */
+================================= */
 
 function formatDate(date) {
 
@@ -728,17 +825,26 @@ function formatDate(date) {
       date.getMinutes()
     ).padStart(2, '0');
 
-  return `${y}/${m}/${d} ${hh}:${mm}`;
+
+  return (
+    y + '/' +
+    m + '/' +
+    d + ' ' +
+    hh + ':' +
+    mm
+  );
+
 }
 
 
-/* =========================
+/* =================================
    コースデータ取得
-========================= */
+================================= */
 
 function getCourseData() {
 
   const foods = [];
+
 
   const names =
     document.querySelectorAll(
@@ -749,6 +855,7 @@ function getCourseData() {
     document.querySelectorAll(
       '.food-price'
     );
+
 
   for (
     let i = 0;
@@ -776,6 +883,7 @@ function getCourseData() {
 
   }
 
+
   return {
 
     name:
@@ -785,9 +893,12 @@ function getCourseData() {
         )
         .value,
 
-    foods,
+    foods:
+
+      foods,
 
     updatedAt:
+
       formatDate(
         new Date()
       )
@@ -797,14 +908,15 @@ function getCourseData() {
 }
 
 
-/* =========================
+/* =================================
    コース作成
-========================= */
+================================= */
 
 function createMenu() {
 
   const data =
     getCourseData();
+
 
   let html =
     '<b>' +
@@ -814,6 +926,7 @@ function createMenu() {
         : '名前なし'
     ) +
     '</b><hr>';
+
 
   data.foods.forEach(
     (food, index) => {
@@ -831,6 +944,7 @@ function createMenu() {
     }
   );
 
+
   document
     .getElementById(
       'result'
@@ -838,18 +952,20 @@ function createMenu() {
     .innerHTML =
     html;
 
+
   document
     .getElementById(
       'result'
     )
     .style.display =
     'block';
+
 }
 
 
-/* =========================
+/* =================================
    保存
-========================= */
+================================= */
 
 function saveCourse(
   isOverwrite = false
@@ -858,12 +974,14 @@ function saveCourse(
   const data =
     getCourseData();
 
+
   let courses =
     JSON.parse(
       localStorage.getItem(
         'courseMenuData'
       )
     ) || [];
+
 
   const editingId =
     document
@@ -884,6 +1002,7 @@ function saveCourse(
           c.id ===
           Number(editingId)
       );
+
 
     if (index !== -1) {
 
@@ -917,12 +1036,14 @@ function saveCourse(
 
     courses.push(data);
 
+
     document
       .getElementById(
         'editingId'
       )
       .value =
       data.id;
+
 
     alert(
       '新規保存しました'
@@ -938,18 +1059,17 @@ function saveCourse(
     )
   );
 
+
   displaySavedCourses();
 
 }
 
 
-/* =========================
+/* =================================
    保存コース読込
-========================= */
+================================= */
 
-function loadCourseToForm(
-  course
-) {
+function loadCourseToForm(course) {
 
   document
     .getElementById(
@@ -958,6 +1078,7 @@ function loadCourseToForm(
     .value =
     course.id;
 
+
   document
     .getElementById(
       'customerName'
@@ -965,11 +1086,13 @@ function loadCourseToForm(
     .value =
     course.name || '';
 
+
   document
     .getElementById(
       'foods'
     )
     .innerHTML = '';
+
 
   foodCount = 0;
 
@@ -996,14 +1119,15 @@ function loadCourseToForm(
 
   }
 
+
   updateFoodTotal();
 
 }
 
 
-/* =========================
+/* =================================
    保存コース表示
-========================= */
+================================= */
 
 function displaySavedCourses() {
 
@@ -1012,12 +1136,14 @@ function displaySavedCourses() {
       'savedCourses'
     );
 
+
   const courses =
     JSON.parse(
       localStorage.getItem(
         'courseMenuData'
       )
     ) || [];
+
 
   const keyword =
     document
@@ -1028,12 +1154,14 @@ function displaySavedCourses() {
       .trim()
       .toLowerCase();
 
+
   const sortOrder =
     document
       .getElementById(
         'sortOrder'
       )
       .value;
+
 
   area.innerHTML = '';
 
@@ -1124,6 +1252,7 @@ function displaySavedCourses() {
           'div'
         );
 
+
       div.className =
         'saved-item';
 
@@ -1132,6 +1261,7 @@ function displaySavedCourses() {
         document.createElement(
           'div'
         );
+
 
       infoDiv.className =
         'saved-item-info';
@@ -1142,8 +1272,10 @@ function displaySavedCourses() {
           'div'
         );
 
+
       titleDiv.className =
         'saved-item-title';
+
 
       titleDiv.textContent =
         (
@@ -1158,8 +1290,10 @@ function displaySavedCourses() {
           'div'
         );
 
+
       dateDiv.className =
         'saved-item-date';
+
 
       dateDiv.textContent =
         course.updatedAt
@@ -1170,6 +1304,7 @@ function displaySavedCourses() {
       infoDiv.appendChild(
         titleDiv
       );
+
 
       if (
         course.updatedAt
@@ -1187,6 +1322,7 @@ function displaySavedCourses() {
           'div'
         );
 
+
       btnGroup.className =
         'saved-item-buttons';
 
@@ -1196,11 +1332,14 @@ function displaySavedCourses() {
           'button'
         );
 
+
       loadResultBtn.className =
         'load';
 
+
       loadResultBtn.textContent =
         '表示';
+
 
       loadResultBtn.onclick =
         () =>
@@ -1214,11 +1353,14 @@ function displaySavedCourses() {
           'button'
         );
 
+
       loadFormBtn.className =
         'edit';
 
+
       loadFormBtn.textContent =
         '読込';
+
 
       loadFormBtn.onclick =
         () =>
@@ -1232,11 +1374,14 @@ function displaySavedCourses() {
           'button'
         );
 
+
       delBtn.className =
         'del';
 
+
       delBtn.textContent =
         '削除';
+
 
       delBtn.onclick =
         () =>
@@ -1266,6 +1411,7 @@ function displaySavedCourses() {
         btnGroup
       );
 
+
       area.appendChild(
         div
       );
@@ -1276,13 +1422,11 @@ function displaySavedCourses() {
 }
 
 
-/* =========================
+/* =================================
    保存コース表示
-========================= */
+================================= */
 
-function createSavedResult(
-  course
-) {
+function createSavedResult(course) {
 
   let html =
     '<b>' +
@@ -1336,6 +1480,7 @@ function createSavedResult(
     .innerHTML =
     html;
 
+
   document
     .getElementById(
       'result'
@@ -1346,9 +1491,9 @@ function createSavedResult(
 }
 
 
-/* =========================
+/* =================================
    保存コース削除
-========================= */
+================================= */
 
 function deleteCourse(id) {
 
@@ -1409,9 +1554,9 @@ function deleteCourse(id) {
 }
 
 
-/* =========================
+/* =================================
    バックアップ
-========================= */
+================================= */
 
 function backupData() {
 
@@ -1506,13 +1651,17 @@ function backupData() {
   a.download =
     filename;
 
+
   document
     .body
     .appendChild(a);
 
+
   a.click();
 
+
   a.remove();
+
 
   URL.revokeObjectURL(
     url
@@ -1526,14 +1675,15 @@ function backupData() {
 }
 
 
-/* =========================
+/* =================================
    復元
-========================= */
+================================= */
 
 function restoreData(event) {
 
   const file =
     event.target.files[0];
+
 
   if (!file) return;
 
@@ -1560,9 +1710,7 @@ function restoreData(event) {
           )
         ) {
 
-          throw new Error(
-            'バックアップデータが正しくありません。'
-          );
+          throw new Error();
 
         }
 
@@ -1617,16 +1765,14 @@ function restoreData(event) {
     };
 
 
-  reader.readAsText(
-    file
-  );
+  reader.readAsText(file);
 
 }
 
 
-/* =========================
+/* =================================
    HTMLエスケープ
-========================= */
+================================= */
 
 function escapeHtml(value) {
 
@@ -1660,12 +1806,14 @@ function escapeHtml(value) {
 }
 
 
-/* =========================
+/* =================================
    初期状態
-========================= */
+================================= */
 
 addFood();
+
 addFood();
+
 addFood();
 
 displaySavedCourses();
@@ -1673,9 +1821,9 @@ displaySavedCourses();
 updateFoodTotal();
 
 
-/* =========================
-   Service Worker登録
-========================= */
+/* =================================
+   Service Worker
+================================= */
 
 if (
   'serviceWorker' in navigator
