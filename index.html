@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>コースメニュー</title>
+<meta name="description" content="コースメニュー管理アプリ">
+<meta name="theme-color" content="#333333">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<style>
+*{box-sizing:border-box}body{font-family:sans-serif;margin:0;padding:10px;background:#fff;color:#222}.box{max-width:600px;margin:auto}
+h1{font-size:22px;text-align:center;margin:5px 0 15px}.page{display:none}.page.active{display:block}
+.nav{display:flex;gap:5px;margin-bottom:12px}.nav button{flex:1;height:38px;border:1px solid #bbb;border-radius:5px;background:#f5f5f5;font-size:15px}.nav button.active{background:#333;color:#fff;border-color:#333}
+.customer{width:100%;height:40px;padding:8px;margin-bottom:10px;font-size:16px;border:1px solid #ccc;border-radius:4px}
+.food-row{display:flex;align-items:center;gap:5px;margin-bottom:6px}.plus-button{width:25px;min-width:25px;height:25px;padding:0;border:1px solid #bbb;background:#f5f5f5;border-radius:4px;font-size:16px}
+.food-name{flex:1;min-width:0;height:36px;padding:6px;font-size:16px;border:1px solid #ccc;border-radius:4px}.food-price{width:90px;height:36px;padding:6px;font-size:16px;text-align:right;border:1px solid #ccc;border-radius:4px}
+.delete-button{width:30px;min-width:30px;height:36px;padding:0;border:1px solid #ccc;background:#f5f5f5;border-radius:4px;font-size:16px}
+.total-box{margin-top:15px;padding:12px;border-top:2px solid #222;border-bottom:2px solid #222;text-align:right;font-size:22px;font-weight:bold}
+.save-area{display:flex;gap:5px;margin-top:12px}.save-button,.new-course-button{height:42px;border:0;border-radius:5px;background:#333;color:#fff;font-size:16px}.save-button{flex:1}.new-course-button{width:100%;margin-bottom:12px}
+.sort-area{display:flex;align-items:center;gap:5px;margin-bottom:8px}.sort-label{font-size:12px}#sortSelect{height:30px;padding:2px 5px;border:1px solid #ccc;border-radius:4px;font-size:13px}
+.course-item{border:1px solid #ddd;border-radius:5px;padding:8px;margin-bottom:6px;background:#fafafa}.course-main{display:flex;align-items:center;gap:6px}.course-name{flex:1;min-width:0;font-size:15px;font-weight:bold;word-break:break-all}.course-total{font-size:14px;white-space:nowrap}
+.course-dates{font-size:10px;color:#888;line-height:1.5;margin-top:4px}.course-buttons{display:flex;gap:4px;margin-top:6px}.course-button{flex:1;height:30px;border:1px solid #ccc;border-radius:4px;background:#fff;font-size:12px}.course-button.delete{color:#777}.empty-message{color:#999;font-size:12px;padding:8px 0}
+.data-management{margin-top:12px;padding-top:4px;border-top:1px solid #eee;display:flex;align-items:center;gap:5px;height:28px}.data-management-title{font-size:9px;color:#aaa}.data-buttons{display:flex;gap:3px}.data-button{height:20px;padding:0 5px;border:1px solid #ddd;border-radius:2px;background:#f7f7f7;color:#888;font-size:9px}#backupFile{display:none}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="nav"><button id="navSaved" class="active" onclick="showPage('saved')">保存したコース</button><button id="navMenu" onclick="showPage('menu')">コースメニュー</button></div>
+
+<section id="savedPage" class="page active">
+<h1>保存したコース</h1>
+<button class="new-course-button" onclick="newCourse()">＋ 新しいコースを作成</button>
+<div class="sort-area"><span class="sort-label">並び替え</span><select id="sortSelect" onchange="displaySavedCourses()"><option value="date">作成日時順</option><option value="update">更新日時順</option><option value="name">五十音順</option></select></div>
+<div id="savedCourses"></div>
+<div class="data-management"><span class="data-management-title">データ</span><div class="data-buttons"><button class="data-button" onclick="backupData()">バックアップ</button><button class="data-button" onclick="backupFile.click()">復元</button></div><input type="file" id="backupFile" accept=".json,application/json" onchange="restoreData(event)"></div>
+</section>
+
+<section id="menuPage" class="page">
+<h1>コースメニュー</h1>
+<input id="customerName" class="customer" placeholder="お客様名">
+<div id="foodList"></div>
+<div class="total-box">合計 <span id="totalPrice">0</span>円</div>
+<div class="save-area"><button class="save-button" onclick="saveCourse()">保存</button><button class="save-button" onclick="overwriteCourse()">上書き保存</button></div>
+</section>
+<input type="hidden" id="editingId">
+</div>
+<script>
+const foodList=document.getElementById('foodList'),customerName=document.getElementById('customerName'),totalPrice=document.getElementById('totalPrice'),savedCourses=document.getElementById('savedCourses'),editingId=document.getElementById('editingId'),backupFile=document.getElementById('backupFile');
+function getCourses(){try{return JSON.parse(localStorage.getItem('courseMenuData'))||[]}catch(e){return[]}}
+function showPage(p){savedPage.classList.toggle('active',p==='saved');menuPage.classList.toggle('active',p==='menu');navSaved.classList.toggle('active',p==='saved');navMenu.classList.toggle('active',p==='menu');if(p==='saved')displaySavedCourses()}
+function newCourse(){customerName.value='';editingId.value='';foodList.innerHTML='';addFood();updateTotal();showPage('menu');scrollTo(0,0)}
+function createFoodRow(name='',price=''){const row=document.createElement('div');row.className='food-row';const plus=document.createElement('button');plus.className='plus-button';plus.textContent='＋';plus.onclick=()=>{const n=createFoodRow();row.after(n);n.querySelector('.food-name').focus()};const ni=document.createElement('input');ni.className='food-name';ni.placeholder='料理名';ni.value=name;const pi=document.createElement('input');pi.type='number';pi.inputMode='numeric';pi.className='food-price';pi.placeholder='金額';pi.value=price;pi.oninput=updateTotal;const del=document.createElement('button');del.className='delete-button';del.textContent='×';del.onclick=()=>{row.remove();if(!foodList.children.length)addFood();updateTotal()};[plus,ni,pi,del].forEach(x=>row.appendChild(x));return row}
+function addFood(n='',p=''){const r=createFoodRow(n,p);foodList.appendChild(r);return r}
+function updateTotal(){let t=0;document.querySelectorAll('.food-price').forEach(i=>t+=Number(i.value)||0);totalPrice.textContent=t.toLocaleString()}
+function getFoods(){return [...document.querySelectorAll('.food-row')].map(r=>({name:r.querySelector('.food-name').value,price:r.querySelector('.food-price').value}))}
+function getTotal(){return getFoods().reduce((s,f)=>s+(Number(f.price)||0),0)}
+function saveCourse(){const name=customerName.value.trim();if(!name){alert('お客様名を入力してください。');return customerName.focus()}const c=getCourses(),now=Date.now(),course={id:now,name,foods:getFoods(),total:getTotal(),createdAt:now,updatedAt:now};c.push(course);localStorage.setItem('courseMenuData',JSON.stringify(c));editingId.value=course.id;alert('保存しました。');showPage('saved')}
+function overwriteCourse(){const id=Number(editingId.value);if(!id)return alert('上書きするコースを表示してください。');const c=getCourses(),i=c.findIndex(x=>x.id===id);if(i<0)return alert('保存されたコースが見つかりません。');const name=customerName.value.trim();if(!name)return alert('お客様名を入力してください。');Object.assign(c[i],{name,foods:getFoods(),total:getTotal(),updatedAt:Date.now()});localStorage.setItem('courseMenuData',JSON.stringify(c));alert('上書き保存しました。');showPage('saved')}
+function loadCourse(id){const c=getCourses().find(x=>x.id===id);if(!c)return;customerName.value=c.name||'';foodList.innerHTML='';(c.foods?.length?c.foods:[{}]).forEach(f=>addFood(f.name||'',f.price||''));editingId.value=c.id;updateTotal();showPage('menu');scrollTo(0,0)}
+function deleteCourse(id){if(!confirm('このコースを削除しますか？'))return;localStorage.setItem('courseMenuData',JSON.stringify(getCourses().filter(x=>x.id!==id)));if(Number(editingId.value)===id)editingId.value='';displaySavedCourses()}
+function formatDateTime(v){
+if(!v)return '記録なし';
+const d=new Date(v);
+if(isNaN(d.getTime()))return '記録なし';
+return d.getFullYear()+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+function displaySavedCourses(){let c=getCourses(),s=sortSelect.value;if(s==='date')c.sort((a,b)=>(b.createdAt||b.id||0)-(a.createdAt||a.id||0));if(s==='name')c.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''),'ja'));if(s==='update')c.sort((a,b)=>(b.updatedAt||b.createdAt||b.id||0)-(a.updatedAt||a.createdAt||a.id||0));savedCourses.innerHTML='';if(!c.length){savedCourses.innerHTML='<div class="empty-message">保存したコースはありません。</div>';return}c.forEach(x=>{const item=document.createElement('div');item.className='course-item';const main=document.createElement('div');main.className='course-main';const n=document.createElement('div');n.className='course-name';n.textContent=x.name||'名称なし';const t=document.createElement('div');t.className='course-total';t.textContent=Number(x.total||0).toLocaleString()+'円';main.append(n,t);const bs=document.createElement('div');bs.className='course-buttons';[['表示',()=>loadCourse(x.id),''],['上書き',()=>loadCourse(x.id),''],['削除',()=>deleteCourse(x.id),'delete']].forEach(([txt,fn,cl])=>{const b=document.createElement('button');b.className='course-button '+cl;b.textContent=txt;b.onclick=fn;bs.appendChild(b)});const dates=document.createElement('div');
+dates.className='course-dates';
+dates.innerHTML='作成日時：'+formatDateTime(x.createdAt||x.id)+'<br>更新日時：'+formatDateTime(x.updatedAt||x.createdAt||x.id);
+item.append(main,dates,bs);savedCourses.appendChild(item)})}
+function backupData(){const c=getCourses();if(!c.length)return alert('バックアップする保存データがありません。');const data={appName:'コースメニュー',version:1,backupDate:new Date().toISOString(),courses:c},blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a'),d=new Date();a.href=u;a.download=`コースメニュー_バックアップ_${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}.json`;a.click();URL.revokeObjectURL(u)}
+function restoreData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=x=>{try{const b=JSON.parse(x.target.result);if(!Array.isArray(b.courses))throw 0;if(confirm('現在保存されているコースデータを、バックアップデータで置き換えますか？')){localStorage.setItem('courseMenuData',JSON.stringify(b.courses));editingId.value='';displaySavedCourses();alert('データを復元しました。')}}catch(_){alert('バックアップファイルを読み込めませんでした。')}e.target.value=''};r.readAsText(f)}
+addFood();updateTotal();displaySavedCourses();
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+</script>
+</body></html>
