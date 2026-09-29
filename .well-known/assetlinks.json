@@ -5,9 +5,9 @@
     ],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.aomusi45.coursemenu",
+      "package_name": "io.github.aomusi45.twa",
       "sha256_cert_fingerprints": [
-        "28:D8:ED:14:A4:70:66:40:99:2C:39:14:08:AE:C8:0A:7F:B4:2D:E3:4F:C1:70:08:D5:AC:DE:70:C9:BA:7A:2D"
+        "31:19:22:82:8C:AE:C7:A7:9F:C6:B0:A0:C1:3C:90:CF:8E:02:A2:23:BF:63:37:F1:5E:FD:9D:A5:FD:AB:C4:2A"
       ]
     }
   }
